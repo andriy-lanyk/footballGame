@@ -15,7 +15,6 @@ const car = document.createElement('div');
 car.classList.add('car');
 const ball = document.createElement('div');
 ball.classList.add('football__ball');
-ball.classList.add('rotating');
 car.append(ball);
 const coveredBall = document.createElement('div');
 coveredBall.classList.add('football__cover');
@@ -162,6 +161,7 @@ function startGame(e) {
 	}
 	settings.x = car.offsetLeft;
 	settings.y = car.offsetTop;
+	ball.classList.add('rotating');
 	requestAnimationFrame(playGame);
 }
 
@@ -205,7 +205,6 @@ function playGame() {
 				car.getBoundingClientRect().width / 3 +
 				7,
 		)}px`;
-		ball.classList.add('rotating');
 		// ball.style.top = `${Math.ceil(
 		// 	car.getBoundingClientRect().bottom -
 		// 		car.getBoundingClientRect().height / 2,
