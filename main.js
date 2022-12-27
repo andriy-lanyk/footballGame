@@ -194,6 +194,18 @@ function playGame() {
 
 		car.style.left = settings.x + 'px';
 		car.style.top = settings.y + 'px';
+		ball.style.position = 'fixed';
+		ball.style.top = `${Math.ceil(
+			car.getBoundingClientRect().bottom -
+				car.getBoundingClientRect().height / 2 -
+				2,
+		)}px`;
+		ball.style.left = `${Math.ceil(
+			car.getBoundingClientRect().right -
+				car.getBoundingClientRect().width / 3 +
+				7,
+		)}px`;
+		ball.classList.add('rotating');
 		// ball.style.top = `${Math.ceil(
 		// 	car.getBoundingClientRect().bottom -
 		// 		car.getBoundingClientRect().height / 2,
@@ -250,6 +262,7 @@ function moveEnemy() {
 		) {
 			settings.start = false;
 			music.pause();
+			ball.classList.remove('rotating');
 			TouchEnd();
 			if (settings.score > settings.record) {
 				localStorage.setItem('best-record', settings.score);
