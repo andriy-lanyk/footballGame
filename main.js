@@ -162,6 +162,9 @@ function startGame(e) {
 	settings.x = car.offsetLeft;
 	settings.y = car.offsetTop;
 	ball.classList.add('rotating');
+	ball.style.position = 'absolute';
+	ball.style.top = '';
+	ball.style.left = '';
 	requestAnimationFrame(playGame);
 }
 
@@ -194,24 +197,6 @@ function playGame() {
 
 		car.style.left = settings.x + 'px';
 		car.style.top = settings.y + 'px';
-		ball.style.position = 'fixed';
-		ball.style.top = `${Math.ceil(
-			car.getBoundingClientRect().bottom -
-				car.getBoundingClientRect().height / 2 -
-				2,
-		)}px`;
-		ball.style.left = `${Math.ceil(
-			car.getBoundingClientRect().right -
-				car.getBoundingClientRect().width / 3 +
-				7,
-		)}px`;
-		// ball.style.top = `${Math.ceil(
-		// 	car.getBoundingClientRect().bottom -
-		// 		car.getBoundingClientRect().height / 2,
-		// )}px`;
-		// ball.style.left = `${Math.ceil(
-		// 	car.getBoundingClientRect().right - car.getBoundingClientRect().width / 3,
-		// )}px`;
 		requestAnimationFrame(playGame);
 	}
 }
@@ -274,6 +259,23 @@ function moveEnemy() {
 			}
 			startButtons.forEach((btn) => (btn.disabled = false));
 			alert(`Увы, мяч в Месси был отобран...`);
+			// let rectBall = ball.getBoundingClientRect();
+			// let rectCar = car.getBoundingClientRect();
+			// let ballParams = [];
+			// let carParams = [];
+			// for (const key in rectBall) {
+			// 	if (typeof rectBall[key] !== 'function') {
+			// 		ballParams.push(`${key} : ${rectBall[key]}`);
+			// 	}
+			// }
+			// for (const key in rectCar) {
+			// 	if (typeof rectCar[key] !== 'function') {
+			// 		carParams.push(`${key} : ${rectCar[key]}`);
+			// 	}
+			// }
+			// alert(`Дані по мячу: ${JSON.stringify(ballParams)}`);
+			// alert(`Позицыя мяча. TOP: ${ball.style.top}, LEFT: ${ball.style.left}`);
+			// alert(`Дані по футболісту: ${JSON.stringify(carParams)}`);
 		}
 
 		item.y += settings.speed / 2;
@@ -294,23 +296,29 @@ function moveEnemy() {
 			gateTarget.getBoundingClientRect().left +
 				gateTarget.getBoundingClientRect().width / 2,
 		);
-		let rightToTheTarget = Math.ceil(
-			gateTarget.getBoundingClientRect().top +
-				gateTarget.getBoundingClientRect().height / 2,
-		);
+		// let topToTheTarget = Math.ceil(
+		// 	gateTarget.getBoundingClientRect().top +
+		// 		gateTarget.getBoundingClientRect().height / 2,
+		// );
 		settings.start = false;
 		music.pause();
-		scoreGoal(leftToTheTarget, rightToTheTarget);
+		let topToTheTarget =
+			start.offsetHeight + gateTarget.getBoundingClientRect().y - 10;
+		scoreGoal(leftToTheTarget, topToTheTarget);
 	}
 }
 
 function scoreGoal(left, top) {
 	ball.style.position = 'fixed';
 	ball.style.top = `${Math.ceil(
-		car.getBoundingClientRect().bottom - car.getBoundingClientRect().height / 2,
+		car.getBoundingClientRect().bottom -
+			2 -
+			car.getBoundingClientRect().height / 2,
 	)}px`;
 	ball.style.left = `${Math.ceil(
-		car.getBoundingClientRect().right - car.getBoundingClientRect().width / 3,
+		car.getBoundingClientRect().right +
+			7 -
+			car.getBoundingClientRect().width / 3,
 	)}px`;
 	anime({
 		targets: '.gameArena .football__ball',
