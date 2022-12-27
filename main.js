@@ -194,8 +194,13 @@ function playGame() {
 
 		car.style.left = settings.x + 'px';
 		car.style.top = settings.y + 'px';
-		ball.style.top = `${Math.ceil(car.getBoundingClientRect().bottom - 70)}px`;
-		ball.style.left = `${Math.ceil(car.getBoundingClientRect().right - 40)}px`;
+		// ball.style.top = `${Math.ceil(
+		// 	car.getBoundingClientRect().bottom -
+		// 		car.getBoundingClientRect().height / 2,
+		// )}px`;
+		// ball.style.left = `${Math.ceil(
+		// 	car.getBoundingClientRect().right - car.getBoundingClientRect().width / 3,
+		// )}px`;
 		requestAnimationFrame(playGame);
 	}
 }
@@ -288,6 +293,13 @@ function moveEnemy() {
 }
 
 function scoreGoal(left, top) {
+	ball.style.position = 'fixed';
+	ball.style.top = `${Math.ceil(
+		car.getBoundingClientRect().bottom - car.getBoundingClientRect().height / 2,
+	)}px`;
+	ball.style.left = `${Math.ceil(
+		car.getBoundingClientRect().right - car.getBoundingClientRect().width / 3,
+	)}px`;
 	anime({
 		targets: '.gameArena .football__ball',
 		left: `${left}px`,
