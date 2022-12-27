@@ -308,12 +308,14 @@ html {
     bottom: 19px;
     width: 20px;
     height: 20px;
-    right: -2px;
+    right: -1px;
   }
 
   .football__ball {
-    width: 18px;
-    height: 18px;
+    width: 24px;
+    height: 22px;
+    bottom: 18px;
+    right: -4px;
   }
 }
 
