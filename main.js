@@ -13,6 +13,13 @@ const music = new Audio('audio.mp3');
 
 const car = document.createElement('div');
 car.classList.add('car');
+const ball = document.createElement('div');
+ball.classList.add('football__ball');
+ball.classList.add('rotating');
+car.append(ball);
+const coveredBall = document.createElement('div');
+coveredBall.classList.add('football__cover');
+car.append(coveredBall);
 
 document.body.style.height = window.innerHeight;
 // document.body.addEventListener("touchstart", function (e) {
@@ -110,7 +117,8 @@ function startGame(e) {
 				</div>
 				<div class="finish__pitch">
 					<div class="football__gate"></div>
-				</div>`;
+				</div>
+				`;
 	// for (let i = 0; i < getQuantityElements(HEIGHT_ELEM); i += 1) {
 	// 	const line = document.createElement('div');
 	// 	line.classList.add('line');
@@ -186,6 +194,8 @@ function playGame() {
 
 		car.style.left = settings.x + 'px';
 		car.style.top = settings.y + 'px';
+		ball.style.top = `${Math.ceil(car.getBoundingClientRect().bottom - 70)}px`;
+		ball.style.left = `${Math.ceil(car.getBoundingClientRect().right - 40)}px`;
 		requestAnimationFrame(playGame);
 	}
 }
@@ -258,15 +268,38 @@ function moveEnemy() {
 		// }
 	});
 	let gate = document.querySelector('.finish__pitch');
+	let gateTarget = document.querySelector('.football__gate');
 	let styleTop = gate.offsetTop + settings.speed / 2;
 	gate.style.top = `${styleTop}px`;
 
 	if (styleTop >= gameArea.offsetHeight / 8) {
+		let leftToTheTarget = Math.ceil(
+			gateTarget.getBoundingClientRect().left +
+				gateTarget.getBoundingClientRect().width / 2,
+		);
+		let rightToTheTarget = Math.ceil(
+			gateTarget.getBoundingClientRect().top +
+				gateTarget.getBoundingClientRect().height / 2,
+		);
 		settings.start = false;
 		music.pause();
-		alert(`Ура, Вы победили и дошли к воротам!`);
-		startButtons.forEach((btn) => (btn.disabled = false));
+		scoreGoal(leftToTheTarget, rightToTheTarget);
 	}
+}
+
+function scoreGoal(left, top) {
+	anime({
+		targets: '.gameArena .football__ball',
+		left: `${left}px`,
+		top: `${top}px`,
+		easing: 'easeInOutQuad',
+		duration: 750,
+	});
+	ball.classList.remove('rotating');
+	setTimeout(() => {
+		startButtons.forEach((btn) => (btn.disabled = false));
+		alert(`Ура, Вы победили и забили гол!`);
+	}, 1000);
 }
 
 // MOBILE
