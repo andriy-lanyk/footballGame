@@ -173,6 +173,16 @@ html {
   .enemy {
     width: 40px;
     height: 80px;
+    transform: scale(0.8);
+  }
+
+  .car {
+    width: 75px;
+  }
+
+  .enemy {
+    width: 43px;
+    height: 100px;
   }
 }
 
@@ -253,6 +263,17 @@ html {
   width: 150px;
   height: 95px;
   background: transparent url("./image/football-gate4-removebg-preview-obtain.png") center / cover no-repeat;
+}
+
+@media screen and (max-width: 768px) {
+  .football__gate {
+    width: 90px;
+    height: 60px;
+  }
+  
+  .finish__pitch {
+    height: 45px;
+  }
 }
 
 .start {
