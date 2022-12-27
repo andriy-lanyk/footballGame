@@ -305,9 +305,10 @@ html {
   }
 
   .football__cover {
-    bottom: 20px;
-    width: 18px;
-    height: 19px;
+    bottom: 19px;
+    width: 20px;
+    height: 20px;
+    right: -2px;
   }
 
   .football__ball {
